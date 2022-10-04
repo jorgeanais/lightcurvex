@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# Extract fits tables to ascii file. Observation date is saved to a log file.
+# Convert fits tables to ascii file. Observation date is saved to a log file.
 
 OUTPUT_FILE="catalogue.asc"
 OUTPUT_DIR="ascii_tables"
-LOG_FILE="obsdates.txt"
+LOG_FILE="log.txt"
 GETDATEOBS() { fitsheader -k DATE-OBS $1 | grep -Eho "'.*'" | head -n 1; };
 GETFILTER() { fitsheader -k "HIERARCH ESO INS FILT1 NAME" $1 | grep -Eho "'.*'" | head -n 1; };
 
