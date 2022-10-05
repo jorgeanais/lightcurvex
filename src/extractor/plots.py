@@ -49,7 +49,7 @@ def plot_variable(
     mad = median_absolute_deviation(df[mag_col].values)
 
     plt.figure(figsize=(10, 8))
-    plt.errorbar(df[date_col], df[mag_col], yerr=df[mag_err_col])
+    plt.errorbar(df[date_col], df[mag_col], yerr=df[mag_err_col], fmt="o")
     plt.plot(df[date_col], df[mag_col], "o")
     plt.xlabel("Date (MJD)")
     plt.ylabel("Magnitude")
