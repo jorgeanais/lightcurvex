@@ -66,7 +66,7 @@ def load_catalogs(dir_path: Path) -> list[Catalog]:
 
     for table_file in dir_path.glob("*.asc"):
 
-        print("Processing", str(table_file.stem))  # TODO: delete this
+        print("Processing", str(table_file.stem))  # TODO: remove
 
         # Read data for every file
         table = Table.read(table_file, format="ascii", names=colnames)
@@ -80,13 +80,12 @@ def load_catalogs(dir_path: Path) -> list[Catalog]:
         catalog = Catalog(
             name=name,
             table=table,
-            date=obsdates[name],  # date=Time(obsdates[name], format='isot', scale='utc'),
+            # date=obsdates[name],
+            date=Time(obsdates[name], format='isot', scale='utc'),
             filter=NIRFilter(filters[name]),
             coords=coords,
         )
         catalogs.append(catalog)
-
-        break  # TODO: delete this
 
     return catalogs
 

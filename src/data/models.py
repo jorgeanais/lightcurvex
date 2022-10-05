@@ -3,6 +3,8 @@ from enum import Enum
 
 from astropy.coordinates import SkyCoord
 from astropy.table import Table
+from astropy.time import Time
+
 
 class NIRFilter(Enum):
     """List possible NIR bands"""
@@ -15,13 +17,14 @@ class Catalog:
     """Class used to store information related with CASU ascii catalogs"""
     name: str
     table: Table = field(repr=False)
-    date: str
+    date: Time
     filter: NIRFilter
     coords: SkyCoord  = field(repr=False)
 
     def __post_init__(self) -> None:
         """Post init method"""
-        self.table["date"] = self.date
+        self.table["date"] = self.date.isot
+        self.table["mjd"] = self.date.mjd
         self.table["filter"] = self.filter.value
 
 
