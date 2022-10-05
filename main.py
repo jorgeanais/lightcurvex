@@ -21,7 +21,7 @@ def main() -> None:
     save_to_file(data, DATA_PATH / "output")
     plot_data(data, DATA_PATH / "plots")
     
-    # TODO: Add a data summary. How many objects, avg. epochs per filter, avg. mag per filter, etc.
+    # TODO: Add a data summary. How many objects, avg. epochs per filter, avg. mag per filter, RR Lyrae types, etc.
 
 
 
