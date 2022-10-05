@@ -8,18 +8,21 @@ from astropy.time import Time
 
 class NIRFilter(Enum):
     """List possible NIR bands"""
+
     J = "J"
     H = "H"
     Ks = "Ks"
 
+
 @dataclass
 class Catalog:
     """Class used to store information related with CASU ascii catalogs"""
+
     name: str
     table: Table = field(repr=False)
     date: Time
     filter: NIRFilter
-    coords: SkyCoord  = field(repr=False)
+    coords: SkyCoord = field(repr=False)
 
     def __post_init__(self) -> None:
         """Post init method"""
@@ -31,9 +34,9 @@ class Catalog:
 @dataclass
 class RRLyrae:
     """Class used to store RRLyrae stars from Ramos et al. 2020"""
+
     table: Table
 
     @property
     def coords(self) -> SkyCoord:
         return SkyCoord(self.table["RA_ICRS"], self.table["DE_ICRS"])
-

@@ -6,7 +6,7 @@ TOLERANCE: float = 0.34
 
 def gather_data(rrlyrae: RRLyrae, catalogs: list[Catalog]) -> Table:
     """Extract corresponding data from catalogs for all sources in rrlyrae"""
-    
+
     output_table = Table()
     for catalog in catalogs:
 

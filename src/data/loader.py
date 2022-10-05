@@ -81,7 +81,7 @@ def load_catalogs(dir_path: Path) -> list[Catalog]:
             name=name,
             table=table,
             # date=obsdates[name],
-            date=Time(obsdates[name], format='isot', scale='utc'),
+            date=Time(obsdates[name], format="isot", scale="utc"),
             filter=NIRFilter(filters[name]),
             coords=coords,
         )
