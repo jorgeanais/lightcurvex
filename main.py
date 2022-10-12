@@ -12,7 +12,7 @@ DATA_PATH = Path("/home/jorge/Documents/data/CASU_411/tables/ascii_tables_no-til
 def main() -> None:
 
     # Load catalogs
-    rrlyrae = load_RRLyrae(Path(r"assets/J_A+A_638_A104_t411.vot"))
+    rrlyrae = load_RRLyrae(Path(r"assets/sgr_RRLyrae_with_period.vot"))
     catalogs = load_catalogs(DATA_PATH)
 
     # Generate a table with common gathered data

@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 from pathlib import Path
 
@@ -9,6 +10,10 @@ from scipy.stats import median_absolute_deviation
 def plot_data(
     table: Table, output_dir: Path, id_col: str = "GaiaDR2", filter_col: str = "filter"
 ) -> None:
+    """
+    Generate plots for all the objects in the table (i.e. VVV sources that match the RR Lyrae stars).
+    One plot per object and filter combination.
+    """
 
     if not output_dir.exists():
         output_dir.mkdir(parents=True)
@@ -18,43 +23,76 @@ def plot_data(
 
     # Save objects independently
     for id in ids:
+        
         single_object_df = df.query(f"{id_col} == {id}").copy()
+        
+        # Add a column with the phase
+        single_object_df["phase"] = phase_folding(single_object_df)
+        
         filters = list(single_object_df[filter_col].unique())
+        
         for f in filters:
             single_filter_object_df = single_object_df.query(
                 f"{filter_col} == '{f}'"
             ).copy()
-            plot_variable(single_filter_object_df, output_dir)
+            plot_variable_star(single_filter_object_df, output_dir)
 
 
-def plot_variable(
+def plot_variable_star(
     df: pd.DataFrame,
     output_dir: Path,
-    date_col: str = "mjd",
-    mag_col: str = "mag",
-    mag_err_col: str = "mag_error",
+    x_col: str = "phase",
+    y_col: str = "mag",
+    y_err_col: str = "mag_error",
     filter_col: str = "filter",
-    vctype_col: str = "VCtype",
+    vtype_col: str = "SOStype",
 ) -> None:
-    """Plot a variable"""
+    """Plot a single variable star light curve"""
 
     # Prepare data
-    if mag_col == "date":
-        df[date_col] = pd.to_datetime(df[date_col])
+    if y_col == "date":
+        df[x_col] = pd.to_datetime(df[x_col])
 
     object = df["GaiaDR2"].unique()[0]
     filter = df[filter_col].unique()[0]
-    vctype = df[vctype_col].unique()[0]
-    median_mag = df[mag_col].median()
-    mad = median_absolute_deviation(df[mag_col].values)
+    vtype = df[vtype_col].unique()[0]
+    median_mag = df[y_col].median()
+    mad = median_absolute_deviation(df[y_col].values)
 
     plt.figure(figsize=(10, 8))
-    plt.errorbar(df[date_col], df[mag_col], yerr=df[mag_err_col], fmt="o")
-    plt.plot(df[date_col], df[mag_col], "o")
-    plt.xlabel("Date (MJD)")
-    plt.ylabel("Magnitude")
-    plt.title(f"{object=} {filter=} {vctype=} {median_mag=:.3f} {mad=:.3f}")
+    plt.errorbar(df[x_col], df[y_col], yerr=df[y_err_col], fmt="o")
+    plt.plot(df[x_col], df[y_col], "o")
+    plt.xlabel(f"{x_col}")
+    plt.ylabel(f"{y_col}")
+    plt.title(f"{object=} {filter=} {vtype=} {median_mag=:.3f} {mad=:.3f}")
 
-    plt.savefig(output_dir / f"{object}_{filter}_{vctype}.png")
+    plt.savefig(output_dir / f"{object}_{filter}_{vtype}.png")
     plt.clf()
     plt.close()
+
+
+
+def phase_folding(df: pd.DataFrame, period_cols: list[str] = ["pf", "p1_o"], date_col: str = "mjd") -> np.ndarray:
+    """
+    Phase folding for a single source.
+    
+    Period is assumed in units of days, and date_col is assumed to be in MJD.
+    
+    Reference
+    https://docs.astropy.org/en/stable/timeseries/lombscargle.html
+    """
+    
+    df = df.copy()
+    date_origin = df[date_col].min()
+    
+    df["period"] = df[period_cols].mean(axis=1).values
+
+    # Phase folding
+    df["phase"] = (df[date_col] - date_origin) % df["period"] / df["period"]
+
+    return df["phase"].values
+
+
+
+
+    

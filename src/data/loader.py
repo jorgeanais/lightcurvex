@@ -66,11 +66,17 @@ def load_catalogs(dir_path: Path) -> list[Catalog]:
 
     for table_file in dir_path.glob("*.asc"):
 
-        print("Processing", str(table_file.stem))  # TODO: remove
-
-        # Read data for every file
-        table = Table.read(table_file, format="ascii", names=colnames)
         name = table_file.stem
+        print("Processing", str(name))
+
+        # Try read data for every file, otherwise skip it
+        # TODO: check why some files are not being read
+        try:
+            table = Table.read(table_file, format="ascii", names=colnames)
+        except Exception as e:
+            print("Error reading file", table_file.stem, e)
+            print()
+            continue
 
         # Read coordinates and update table
         coords = get_coordinates(table)
