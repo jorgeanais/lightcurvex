@@ -25,14 +25,14 @@ def plot_data(
 
     # Save objects independently
     for id in ids:
-        
+
         single_object_df = df.query(f"{id_col} == {id}").copy()
-        
+
         # Add a column with the phase
         single_object_df["phase"] = phase_folding(single_object_df)
-        
+
         filters = list(single_object_df[filter_col].unique())
-        
+
         for f in filters:
             single_filter_object_df = single_object_df.query(
                 f"{filter_col} == '{f}'"
@@ -71,12 +71,3 @@ def plot_variable_star(
     plt.savefig(output_dir / f"{object}_{filter}_{vtype}.png")
     plt.clf()
     plt.close()
-
-
-
-
-
-
-
-
-    
