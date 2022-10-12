@@ -2,8 +2,9 @@ from pathlib import Path
 
 from src.data.loader import load_catalogs, load_RRLyrae
 from src.extractor.gather import gather_data
-from src.extractor.plots import plot_data
-from src.extractor.write import save_to_file
+from src.processing.plots import plot_data
+from src.processing.summary import summarize
+from src.utils.write import save_to_file
 
 
 DATA_PATH = Path("/home/jorge/Documents/data/CASU_411/tables/ascii_tables_no-tiled/")
@@ -22,7 +23,8 @@ def main() -> None:
     save_to_file(data, DATA_PATH / "output")
     plot_data(data, DATA_PATH / "plots")
 
-    # TODO: Add a data summary. How many objects, avg. epochs per filter, avg. mag per filter, RR Lyrae types, etc.
+    # Add a data summary. How many objects, avg. epochs per filter, etc.
+    summarize(data.to_pandas(), DATA_PATH / "summary")
 
 
 if __name__ == "__main__":

@@ -4,7 +4,7 @@ from astropy.table import Table
 
 
 def save_to_file(table: Table, output_dir: Path, id_col: str = "GaiaDR2") -> None:
-    """Save data to a folder"""
+    """Save the content of a table splited by id_col"""
 
     if not output_dir.exists():
         output_dir.mkdir(parents=True)

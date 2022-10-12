@@ -11,7 +11,7 @@ Results are saved inside the `DATA_PATH` directory.
 
 
 ## Updates
-04/10/2022 - Simple processing of the data working ok. It produces plots and save each lc individualy.
+04/10/2022 - Simple processing of the data working ok. It produces plots and save each lc individualy.  
 12/10/2022 - LC are phase folded and obtained from the no tiled data.
 
 ## Appendix

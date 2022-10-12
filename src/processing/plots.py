@@ -6,6 +6,8 @@ from astropy.table import Table
 import matplotlib.pyplot as plt
 from scipy.stats import median_absolute_deviation
 
+from .dephase import phase_folding
+
 
 def plot_data(
     table: Table, output_dir: Path, id_col: str = "GaiaDR2", filter_col: str = "filter"
@@ -72,25 +74,7 @@ def plot_variable_star(
 
 
 
-def phase_folding(df: pd.DataFrame, period_cols: list[str] = ["pf", "p1_o"], date_col: str = "mjd") -> np.ndarray:
-    """
-    Phase folding for a single source.
-    
-    Period is assumed in units of days, and date_col is assumed to be in MJD.
-    
-    Reference
-    https://docs.astropy.org/en/stable/timeseries/lombscargle.html
-    """
-    
-    df = df.copy()
-    date_origin = df[date_col].min()
-    
-    df["period"] = df[period_cols].mean(axis=1).values
 
-    # Phase folding
-    df["phase"] = (df[date_col] - date_origin) % df["period"] / df["period"]
-
-    return df["phase"].values
 
 
 
