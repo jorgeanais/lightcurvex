@@ -6,7 +6,7 @@ from src.extractor.plots import plot_data
 from src.extractor.write import save_to_file
 
 
-DATA_PATH = Path("/home/jorge/Documents/data/CASU_411/tables/ascii_tables/")
+DATA_PATH = Path("/home/jorge/Documents/data/CASU_411/tables/ascii_tables_no-tiled/")
 
 
 def main() -> None:

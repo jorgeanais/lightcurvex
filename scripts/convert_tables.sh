@@ -3,7 +3,7 @@
 # Convert fits tables to ascii file. Observation date is saved to a log file.
 
 OUTPUT_FILE="catalogue.asc"
-OUTPUT_DIR="ascii_tables"
+OUTPUT_DIR="ascii_tables_no-tiled"
 LOG_FILE="log.txt"
 GETDATEOBS() { fitsheader -k DATE-OBS $1 | grep -Eho "'.*'" | head -n 1; };
 GETFILTER() { fitsheader -k "HIERARCH ESO INS FILT1 NAME" $1 | grep -Eho "'.*'" | head -n 1; };
@@ -11,7 +11,7 @@ GETFILTER() { fitsheader -k "HIERARCH ESO INS FILT1 NAME" $1 | grep -Eho "'.*'" 
 rm -rf $OUTPUT_DIR
 mkdir -p $OUTPUT_DIR
 
-for file in *_tl_cat.fits;
+for file in *_st_cat.fits;
 do
     echo "Processing $file"
 
