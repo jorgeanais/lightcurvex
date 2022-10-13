@@ -15,7 +15,7 @@ def summarize(df_: pd.DataFrame, outdir: Path) -> None:
     # Number of epochs per filter per obect
     summary_object = pd.pivot_table(
         df,
-        values="recno",
+        values="mag",
         index="GaiaDR2",
         columns="filter",
         aggfunc=["count", "median"],
