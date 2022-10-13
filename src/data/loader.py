@@ -38,14 +38,19 @@ def get_coordinates(
 
 def load_catalogs(dir_path: Path) -> list[Catalog]:
     """Load all CASU VVVX ascii catalogs from path"""
+
+    # Load header keys from log file
     obsdates = {}
     filters = {}
+    obsmjds = {}
     with open(dir_path / LOGFILE) as file:
         for line in file:
-            (key, dateobs, filter) = line.replace("'", "").split()
+            (key, dateobs, band, obsmjd) = line.replace("'", "").split()
             obsdates[key] = dateobs
-            filters[key] = filter
+            filters[key] = band
+            obsmjds[key] = float(obsmjd)
 
+    # Read and create catalogs
     catalogs = []
     colnames = (
         "ra_h",
@@ -69,8 +74,9 @@ def load_catalogs(dir_path: Path) -> list[Catalog]:
         name = table_file.stem
         print("Processing", str(name))
 
-        # Try read data for every file, otherwise skip it
-        # TODO: check why some files are not being read
+        # Try read data for every file, otherwise skip it 
+        # Problem with one file (v20180524_01557_st_cat), on one line (52385). 
+        # Simple solution is just remove that line
         try:
             table = Table.read(table_file, format="ascii", names=colnames)
         except Exception as e:
@@ -78,15 +84,16 @@ def load_catalogs(dir_path: Path) -> list[Catalog]:
             print()
             continue
 
-        # Read coordinates and update table
+        # Read coordinates and update table with ra and dec in degrees
         coords = get_coordinates(table)
         table["ra"] = coords.ra
         table["dec"] = coords.dec
 
+        # Create and object to wrap the table and to include metadata
         catalog = Catalog(
             name=name,
             table=table,
-            # date=obsdates[name],
+            obsmjd=obsmjds[name],
             date=Time(obsdates[name], format="isot", scale="utc"),
             filter=NIRFilter(filters[name]),
             coords=coords,

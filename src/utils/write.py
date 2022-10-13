@@ -1,3 +1,4 @@
+import numpy as np
 from pathlib import Path
 
 from astropy.table import Table
@@ -9,14 +10,11 @@ def save_to_file(table: Table, output_dir: Path, id_col: str = "GaiaDR2") -> Non
     if not output_dir.exists():
         output_dir.mkdir(parents=True)
 
-    # Save data
-    table.write(output_dir / "data.csv", overwrite=True, format="csv")
+    # Save the entire table
+    table.write(str(output_dir / "data.csv"), format="csv")
 
-    df = table.to_pandas()
-    ids = list(df[id_col].unique())
-
+    
     # Save objects independently
+    ids = list(np.unique(table[id_col]))
     for id in ids:
-        df.query(f"{id_col} == {id}").to_csv(
-            output_dir / f"{id}.csv", index=False
-        )  # TODO:add rrlyrae type to the name
+        table[table[id_col] == id].write(str(output_dir / f"{id}.csv"), format="csv")

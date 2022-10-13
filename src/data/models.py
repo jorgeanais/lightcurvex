@@ -21,6 +21,7 @@ class Catalog:
     name: str
     table: Table = field(repr=False)
     date: Time
+    obsmjd: float
     filter: NIRFilter
     coords: SkyCoord = field(repr=False)
 
@@ -29,6 +30,7 @@ class Catalog:
         self.table["date"] = self.date.isot
         self.table["mjd"] = self.date.mjd
         self.table["filter"] = self.filter.value
+        self.table["obsmjd"] = self.obsmjd
 
 
 @dataclass
