@@ -13,7 +13,7 @@ from src.data.loader import load_catalogs
 
 DATA_DIR = Path("/home/jorge/Documents/data/CASU_411/tables/ascii_tables_no-tiled/")
 OUTPUT_DIR = Path(
-    "/home/jorge/Documents/data/CASU_411/tables/ascii_tables_no-tiled/agg/"
+    "/home/jorge/Documents/data/CASU_411/tables/ascii_tables_no-tiled/votable/"
 )
 
 # Time consuming part
