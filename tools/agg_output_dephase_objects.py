@@ -9,6 +9,9 @@ from pathlib import Path
 INPUT_DIR = Path(
     "/home/jorge/Documents/data/CASU_411/tables/ascii_tables_no-tiled/output_dephase/"
 )
+OUTPUT_DIR = Path(
+    "/home/jorge/Documents/data/CASU_411/tables/ascii_tables_no-tiled/agg/"
+)
 
 fixed_columns = [
     "GaiaDR2",
@@ -38,4 +41,10 @@ for file in INPUT_DIR.glob("*.csv"):
 
 df = pd.DataFrame(rows)
 print(df)
-df.to_csv("agg_values_RRLyrae.csv", index=False)
+
+
+# Save to file
+if not OUTPUT_DIR.exists():
+    OUTPUT_DIR.mkdir(parents=True)
+
+df.to_csv(OUTPUT_DIR / "agg_values_RRLyrae.csv", index=False)
