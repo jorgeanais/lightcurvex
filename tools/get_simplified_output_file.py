@@ -1,13 +1,16 @@
 #! /usr/bin/python
 import pandas as pd
+from pathlib import Path
 
 """
 Script used to get the simplified output file from the original output file.
 Used to share the results with the collaborators.
 """
 
-FILENAME = "6760320515827605760"
-df = pd.read_csv(f"{FILENAME}.csv")
+INPUT_FILE = Path("/home/jorge/Documents/data/CASU_411/tables/ascii_tables_no-tiled/output_dephase/6760320515827605760.csv")
+OUTPUT_DIR = Path("/home/jorge/")
+
+df = pd.read_csv(INPUT_FILE)
 
 columns_of_interest = [
     "GaiaDR2",
@@ -37,5 +40,5 @@ columns_of_interest = [
 for filt in list(df["filter"].unique()):
     print(filt)
     df.query("filter == @filt")[columns_of_interest].to_csv(
-        f"{FILENAME}_{filt}.csv", index=False
+        OUTPUT_DIR / f"{INPUT_FILE.stem}_{filt}.csv", index=False
     )
