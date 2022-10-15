@@ -9,7 +9,7 @@ from scipy.stats import median_absolute_deviation
 
 
 def plot_data(
-    table: Table, output_dir: Path, id_col: str = "GaiaDR2", filter_col: str = "filter"
+    table: Table, output_dir: Path, id_col: str = "source_id", filter_col: str = "filter"
 ) -> None:
     """
     Generate plots for all the objects in the table (i.e. VVV sources that match the RR Lyrae stars).
@@ -43,8 +43,8 @@ def plot_variable_star(
     y_col: str = "mag",
     y_err_col: str = "mag_error",
     filter_col: str = "filter",
-    vtype_col: str = "SOStype",
-    id_col: str = "GaiaDR2",
+    vtype_col: str = "best_classification",
+    id_col: str = "source_id",
     period_col: str = "period",
 ) -> None:
     """Plot a single variable star light curve"""

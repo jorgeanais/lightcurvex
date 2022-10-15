@@ -4,7 +4,7 @@ from pathlib import Path
 from astropy.table import Table
 
 
-def save_to_file(table: Table, output_dir: Path, id_col: str = "GaiaDR2") -> None:
+def save_to_file(table: Table, output_dir: Path, id_col: str = "source_id") -> None:
     """Save the content of a table splited by id_col"""
 
     if not output_dir.exists():

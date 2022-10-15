@@ -47,7 +47,7 @@ def phase_folding(
     return df["phase"].values
 
 
-def process_phase_folding(table: Table, id_col: str = "GaiaDR2") -> Table:
+def process_phase_folding(table: Table, id_col: str = "source_id") -> Table:
     """
     Phase folding for all sources.
     """
@@ -58,13 +58,20 @@ def process_phase_folding(table: Table, id_col: str = "GaiaDR2") -> Table:
     # Process one object at a time
     ids = list(df[id_col].unique())
     for id in ids:
+        print("dephasing: ", id)
         single_object_df = df.query(f"{id_col} == {id}").copy()
 
         # Add a column with the phase
         single_object_df["period"] = get_period(single_object_df)
         single_object_df["phase"] = phase_folding(single_object_df)
         single_object_table = Table.from_pandas(single_object_df)
-        output_table = vstack([output_table, single_object_table])
+        try:
+            output_table = vstack([output_table, single_object_table])
+        except Exception as e:
+            print(e)
+            print("Error:", single_object_table)
+            continue
+            
 
 
     return output_table

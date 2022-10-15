@@ -16,7 +16,7 @@ def summarize(df_: pd.DataFrame, outdir: Path) -> None:
     summary_object = pd.pivot_table(
         df,
         values="mag",
-        index="GaiaDR2",
+        index="source_id",
         columns="filter",
         aggfunc=["count", "median"],
     )

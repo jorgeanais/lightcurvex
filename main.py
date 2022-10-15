@@ -9,13 +9,13 @@ from src.utils.write import save_to_file
 
 
 DATA_PATH = Path("/home/jorge/Documents/data/CASU_411/tables/ascii_tables_no-tiled/")
-OUTPUT_PATH = Path("/home/jorge/test/")
+OUTPUT_PATH = Path("/home/jorge/test_all_RRLyrae/")
 
 
 def main() -> None:
 
     # Load catalogs
-    rrlyrae = load_RRLyrae(Path(r"assets/sgr_RRLyrae_with_period.vot"))
+    rrlyrae = load_RRLyrae(Path(r"assets/all_rrlyrae_t411.vot"))
     catalogs = load_catalogs(DATA_PATH)
 
     # Generate a table with common gathered data
