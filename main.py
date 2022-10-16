@@ -9,7 +9,7 @@ from src.utils.write import save_to_file
 
 
 DATA_PATH = Path("/home/jorge/Documents/data/CASU_411/tables/ascii_tables_no-tiled/")
-OUTPUT_PATH = Path("/home/jorge/test_all_RRLyrae/")
+OUTPUT_PATH = Path("/home/jorge/output/")
 
 
 def main() -> None:
@@ -31,7 +31,7 @@ def main() -> None:
     plot_data(data, OUTPUT_PATH / "plots")
 
     # Add a data summary. How many objects, avg. epochs per filter, etc.
-    summarize(data.to_pandas(), OUTPUT_PATH / "summary")
+    # summarize(data.to_pandas(), OUTPUT_PATH / "summary")
 
 
 if __name__ == "__main__":

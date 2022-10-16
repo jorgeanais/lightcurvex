@@ -53,10 +53,12 @@ def process_phase_folding(table: Table, id_col: str = "source_id") -> Table:
     """
 
     df = table.to_pandas()
+    # df.drop(columns=["priam_flags"], inplace=True)  # TODO: remove this line
     output_table = Table()
 
     # Process one object at a time
     ids = list(df[id_col].unique())
+    list_of_tables = []
     for id in ids:
         print("dephasing: ", id)
         single_object_df = df.query(f"{id_col} == {id}").copy()
@@ -65,12 +67,11 @@ def process_phase_folding(table: Table, id_col: str = "source_id") -> Table:
         single_object_df["period"] = get_period(single_object_df)
         single_object_df["phase"] = phase_folding(single_object_df)
         single_object_table = Table.from_pandas(single_object_df)
-        try:
-            output_table = vstack([output_table, single_object_table])
-        except Exception as e:
-            print(e)
-            print("Error:", single_object_table)
-            continue
+        
+        list_of_tables.append(single_object_table)
+
+    
+    output_table = vstack(list_of_tables, "inner")
             
 
 
