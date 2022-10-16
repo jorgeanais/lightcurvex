@@ -53,7 +53,6 @@ def process_phase_folding(table: Table, id_col: str = "source_id") -> Table:
     """
 
     df = table.to_pandas()
-    # df.drop(columns=["priam_flags"], inplace=True)  # TODO: remove this line
     output_table = Table()
 
     # Process one object at a time

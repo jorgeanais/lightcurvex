@@ -41,4 +41,4 @@ class RRLyrae:
 
     @property
     def coords(self) -> SkyCoord:
-        return SkyCoord(self.table["ra"], self.table["dec"])  # TODO: check if this the problem (RA_ICRS, DE_ICRS)
+        return SkyCoord(self.table["ra"], self.table["dec"])
