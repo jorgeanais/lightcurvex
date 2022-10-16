@@ -63,6 +63,8 @@ def plot_variable_star(
     plt.figure(figsize=(10, 8))
     plt.errorbar(df[x_col], df[y_col], yerr=df[y_err_col], fmt="o")
     plt.plot(df[x_col], df[y_col], "o")
+    ymin, ymax = plt.ylim()
+    plt.ylim(ymax, ymin)
     plt.xlabel(f"{x_col}")
     plt.ylabel(f"{y_col}")
     plt.title(f"{object=} {filter=} {vtype=} {median_mag=:.3f} {mad=:.3f} {period=:.6f}")
