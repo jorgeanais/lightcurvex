@@ -15,7 +15,7 @@ OUTPUT_PATH = Path("/home/jorge/output/")
 def main() -> None:
 
     # Load catalogs
-    rrlyrae = load_RRLyrae(Path(r"assets/rrlyrae_tile411.vot"))
+    rrlyrae = load_RRLyrae(Path(r"assets/Ramos_x_OGLE.vot"))
     catalogs = load_catalogs(DATA_PATH)
 
     # Generate a table with common gathered data

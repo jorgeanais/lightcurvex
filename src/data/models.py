@@ -6,6 +6,11 @@ from astropy.table import Table
 from astropy.time import Time
 
 
+# Ra and dec columns of the RRLyrae reference catalog
+RA_RRL_COL = "RAJ2000"
+DEC_RRL_COL = "DEJ2000"
+
+
 class NIRFilter(Enum):
     """List possible NIR bands"""
 
@@ -41,4 +46,4 @@ class RRLyrae:
 
     @property
     def coords(self) -> SkyCoord:
-        return SkyCoord(self.table["ra"], self.table["dec"])
+        return SkyCoord(self.table[RA_RRL_COL], self.table[DEC_RRL_COL])
