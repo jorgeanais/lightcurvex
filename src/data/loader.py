@@ -1,5 +1,4 @@
 from pathlib import Path
-from typing import Any
 import multiprocessing as mp
 
 from astropy.coordinates import SkyCoord
