@@ -8,7 +8,7 @@ from src.processing.summary import summarize
 from src.utils.write import save_to_file
 
 
-DATA_PATH = Path("/home/jorge/Documents/data/CASU_411/tables/ascii_tables_no-tiled/")
+DATA_PATH = Path("/home/jorge/Documents/data/CASU_411/tables/ascii_tables_tiled/")
 OUTPUT_PATH = Path("/home/jorge/output/")
 
 
