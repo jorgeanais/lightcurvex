@@ -4,9 +4,13 @@ import pandas as pd
 from astropy.table import Table, vstack
 
 
+# Column name used to group objects (RR Lyrae catalog)
+SOURCE_ID = "GaiaDR2" #  "source_id"
+PERIOD_COLS = ["Per"]#  ["pf", "p1_o"]
+
 def get_period(
     df: pd.DataFrame,
-    period_cols: list[str] = ["pf", "p1_o"]
+    period_cols: list[str] = PERIOD_COLS
 ) -> np.ndarray:
     """
     Get the period from the input dataframe for a single object.
@@ -47,7 +51,7 @@ def phase_folding(
     return df["phase"].values
 
 
-def process_phase_folding(table: Table, id_col: str = "source_id") -> Table:
+def process_phase_folding(table: Table, id_col: str = SOURCE_ID) -> Table:
     """
     Phase folding for all sources.
     """

@@ -4,12 +4,15 @@ from pathlib import Path
 
 from astropy.table import Table
 import matplotlib.pyplot as plt
-from scipy.stats import median_absolute_deviation
+from scipy.stats import median_abs_deviation
 
+
+# Column used to group objects
+SOURCE_ID = "GaiaDR2"
 
 
 def plot_data(
-    table: Table, output_dir: Path, id_col: str = "source_id", filter_col: str = "filter"
+    table: Table, output_dir: Path, id_col: str = SOURCE_ID, filter_col: str = "filter"
 ) -> None:
     """
     Generate plots for all the objects in the table (i.e. VVV sources that match the RR Lyrae stars).
@@ -43,8 +46,8 @@ def plot_variable_star(
     y_col: str = "mag",
     y_err_col: str = "mag_error",
     filter_col: str = "filter",
-    vtype_col: str = "best_classification",
-    id_col: str = "source_id",
+    vtype_col: str = "best_classification",  # TODO: external column name
+    id_col: str = SOURCE_ID,
     period_col: str = "period",
 ) -> None:
     """Plot a single variable star light curve"""
@@ -57,7 +60,7 @@ def plot_variable_star(
     filter = df[filter_col].unique()[0]
     vtype = df[vtype_col].unique()[0]
     median_mag = df[y_col].median()
-    mad = median_absolute_deviation(df[y_col].values)
+    mad = median_abs_deviation(df[y_col].values)
     period = df[period_col].unique()[0]
 
     plt.figure(figsize=(10, 8))
