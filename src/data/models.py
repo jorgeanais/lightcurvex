@@ -7,8 +7,8 @@ from astropy.time import Time
 
 
 # Ra and dec columns of the RRLyrae reference catalog
-RA_RRL_COL = "RA_ICRS"
-DEC_RRL_COL = "DE_ICRS"
+RA_RRL_COL = "RAJ2000"
+DEC_RRL_COL = "DEJ2000"
 
 
 class NIRFilter(Enum):

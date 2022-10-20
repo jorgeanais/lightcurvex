@@ -5,7 +5,7 @@ from astropy.table import Table, vstack
 
 
 # Column name used to group objects (RR Lyrae catalog)
-SOURCE_ID = "GaiaDR2" #  "source_id"
+SOURCE_ID = "Star" #  "source_id"
 PERIOD_COLS = ["Per"]#  ["pf", "p1_o"]
 
 def get_period(
@@ -64,7 +64,7 @@ def process_phase_folding(table: Table, id_col: str = SOURCE_ID) -> Table:
     list_of_tables = []
     for id in ids:
         print("dephasing: ", id)
-        single_object_df = df.query(f"{id_col} == {id}").copy()
+        single_object_df = df.query(f"{id_col} == '{id}'").copy()
 
         # Add a column with the phase
         single_object_df["period"] = get_period(single_object_df)

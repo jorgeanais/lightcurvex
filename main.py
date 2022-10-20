@@ -8,14 +8,14 @@ from src.processing.summary import summarize
 from src.utils.write import save_to_file
 
 
-DATA_PATH = Path("/home/jorge/Documents/data/CASU_411/tables/ascii_tables_tiled/")
+DATA_PATH = Path("/home/jorge/Documents/data/CASU_411/tables/ascii_tables_no-tiled/")
 OUTPUT_PATH = Path("/home/jorge/output/")
 
 
 def main() -> None:
 
     # Load catalogs
-    rrlyrae = load_RRLyrae(Path(r"assets/sgr_RRLyrae_x_ogle.vot"))
+    rrlyrae = load_RRLyrae(Path(r"assets/Ramos_x_OGLE.vot"))
     catalogs = load_catalogs(DATA_PATH)
 
     # Generate a table with common gathered data

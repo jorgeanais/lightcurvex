@@ -8,7 +8,8 @@ from scipy.stats import median_abs_deviation
 
 
 # Column used to group objects
-SOURCE_ID = "GaiaDR2"
+SOURCE_ID = "Star"
+VTYPE_COL = "Type"
 
 
 def plot_data(
@@ -28,7 +29,7 @@ def plot_data(
     # Save objects independently
     for id in ids:
 
-        single_object_df = df.query(f"{id_col} == {id}").copy()
+        single_object_df = df.query(f"{id_col} == '{id}'").copy()
 
         filters = list(single_object_df[filter_col].unique())
 
@@ -46,7 +47,7 @@ def plot_variable_star(
     y_col: str = "mag",
     y_err_col: str = "mag_error",
     filter_col: str = "filter",
-    vtype_col: str = "best_classification",  # TODO: external column name
+    vtype_col: str = VTYPE_COL,
     id_col: str = SOURCE_ID,
     period_col: str = "period",
 ) -> None:
