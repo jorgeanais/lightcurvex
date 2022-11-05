@@ -50,6 +50,7 @@ def plot_variable_star(
     vtype_col: str = VTYPE_COL,
     id_col: str = SOURCE_ID,
     period_col: str = "period",
+    double_phase: bool = True,
 ) -> None:
     """Plot a single variable star light curve"""
 
@@ -65,10 +66,18 @@ def plot_variable_star(
     period = df[period_col].unique()[0]
 
     plt.figure(figsize=(10, 8))
-    plt.errorbar(df[x_col], df[y_col], yerr=df[y_err_col], fmt="o")
-    plt.plot(df[x_col], df[y_col], "o")
+
+    # Plot data (repeat the phase if `double_phase` is True)
+    for phase in range(double_phase + 1):
+        x = df[x_col] + phase
+        y = df[y_col]
+        yerr = df[y_err_col]
+        plt.errorbar(x, y, yerr=yerr, fmt="o", c="gray", alpha=0.2, )
+        plt.plot(x, y, "o", c="black")
+    
     ymin, ymax = plt.ylim()
     plt.ylim(ymax, ymin)
+    plt.xlim(-0.1, double_phase + 1.1)
     plt.xlabel(f"{x_col}")
     plt.ylabel(f"{y_col}")
     plt.title(f"{object=} {filter=} {vtype=} {median_mag=:.3f} {mad=:.3f} {period=:.6f}")
